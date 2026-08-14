@@ -164,7 +164,7 @@ footer .meta{color:var(--muted);font-size:.9rem;margin-top:14px;line-height:1.8}
 
 <!-- HERO -->
 <header class="hero" id="top">
-  <video class="hero-media" autoplay muted loop playsinline poster="assets/videos/hero-suit.jpg">
+  <video id="heroVid" class="hero-media" autoplay muted loop playsinline poster="assets/videos/hero-suit.jpg">
     <source src="assets/videos/hero-suit.mp4" type="video/mp4" />
   </video>
   <img class="hero-poster" src="assets/videos/hero-suit.jpg" alt="Nebil Collection mağaza cephesi" style="display:none" media="(max-width:768px)" />
@@ -350,6 +350,9 @@ addEventListener('scroll',()=>{nav.classList.toggle('scrolled',scrollY>40)});
 // reveal on scroll
 const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.15});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+// force hero autoplay (some browsers ignore the muted attribute and block playback)
+const heroVid=document.getElementById('heroVid');
+if(heroVid){heroVid.muted=true;const p=heroVid.play();if(p&&p.catch)p.catch(()=>{});}
 </script>
 </body>
 </html>
